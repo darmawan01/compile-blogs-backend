@@ -35,6 +35,9 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $post = Post::create($request->all() + ['user_id' => Auth::id()]);
+
+        return $post;
     }
 
     /**
@@ -46,6 +49,13 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $post = Post::find($post);
+
+        if (count($post) > 0) {
+            return response()->json($post);
+        }
+
+        return response()->json(['error' => 'Resource not found!'], 404);
     }
 
     /**
@@ -69,6 +79,13 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        $post = Post::find($post);
+
+        $post->update(
+            $request->all()
+        );
+
+        return response()->json($post);
     }
 
     /**
@@ -80,5 +97,12 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        try {
+            Post::destroy($post);
+
+            return response([], 204);
+        } catch (\Exception $e) {
+            return response(['Problem When deleted post'], 500);
+        }
     }
 }

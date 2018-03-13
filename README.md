@@ -1,9 +1,23 @@
 # Compile Backend Web Apps
+
 # Run On Local
-    - composer install
-    - rename .env.example to .env then set database name,user,password
-    - php artisan migrate
-    - php artisan passport:install
+  - Composer Install -> installing dependencys package
+  - Rename .env.example to .env
+  - set .env : <br>
+      <u> make sure you have created the database, and then change the code below according to your database</u>
+
+      > DB_CONNECTION=mysql <br>
+      > DB_HOST=localhost <br>
+      > DB_PORT=3306 <br>
+      > DB_DATABASE=database_name <br>
+      > DB_USERNAME=username <br>
+      > DB_PASSWORD=password
+
+  - php artisan migrate -> migrate model
+  - php artisan db:seed -> auto adding data to table from seed -> seed is data permanent/default
+  - php artisan key:generate -> generate the APP_KEY 
+  - php artisan serve -> run server
+
 # Api Routes
 
     - php artisan route:list
